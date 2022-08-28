@@ -1,0 +1,40 @@
+{% extends "main.html" %} {% load static %} {% block content %}
+<link rel="stylesheet" href="{% static 'base/css/home.css' %}" />
+
+<main>
+	<h1>Home Page of {{ user.username }}</h1>
+	<div class="d flex align-align-items-center">
+		<div class="row row-cols-1 row-cols-md-4 g-4 sm-2">
+		{% for playercard in playercards %}
+				<div class="col">
+					<div class="card border-secondary mb-3" style="width: 14rem">
+						<img
+							src="https://picsum.photos/200/200"
+							alt="exposed brick wall in a hipster cafe"
+							class="img-fluid"
+						/>
+						<div class="card-body">
+							<h5 class="card-title text-center">
+								<a class="team-name" href="{% url 'playercard' playercard.slug %}"
+									>{{ playercard.player.name }}</a
+								>
+							</h5>
+							<h6 class="card-text text-center">
+								ID:{{ playercard.index }}
+								<br />
+								Age: {{ playercard.player.date_of_birth }}
+								<br />
+								Country: {{ playercard.player.country.name }}
+							</h6>
+						</div>
+						<button type="button" class="btn btn-outline-primary">Buy it! 250CFA
+							<span class="badge text-bg-primary"></span>
+						</button>
+					</div>
+				</div>
+				{% endfor %}
+			</div>
+		</div>
+</main>
+
+{% endblock content %}

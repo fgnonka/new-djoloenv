@@ -1,0 +1,27 @@
+{% extends "main.html" %} 
+{% load static %}
+
+{% block scripts %}
+    <script src="{% static 'auctions/main.js' %}" defer ></script>
+{% endblock scripts %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-5">
+            <div>Auction#: {{object.id}}
+        <br>
+        Owner: {{object.owner}}
+        <br>
+        Card: {{object.card}}
+            </div>
+        </div>
+        <div class="col-5">
+            <p>End of auction:</p>
+            <div id="auction-box">{{object.duration|date:"M d, Y H:m:s"}}</div>
+        </div>
+    </div>
+    <div>Time Left:</div>
+    <div id="countdown-box" class="text-center mt-3 h1">
+        <div class="spinner-border" role="status"></div>
+    </div>    
+{% endblock content %}

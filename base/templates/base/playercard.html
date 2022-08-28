@@ -1,0 +1,39 @@
+{% extends "main.html" %} {% block content %}
+<h1 style="color: #000; font-size: 20px">{{ playercard.player.name }}
+    <br/> 
+    Rarity:{{ playercard.rarity.name }}
+    <br/> 
+    Index:{{ playercard.index }}
+    <br/> 
+    Team: {{ playercard.player.team.country.name }}
+    <br/> 
+    Year: {{ playercard.player.team.year }}
+
+</h1>
+
+<div class="col">
+					<div class="card border-secondary mb-3" style="width: 18rem">
+						<img
+							src="https://picsum.photos/200/300"
+							alt="exposed brick wall in a hipster cafe"
+							class="img-fluid"
+						/>
+						<div class="card-body">
+							<h4 class="card-title">
+								<a class="team-name" href="{% url 'playercard' playercard.slug %}"
+									>{{ playercard.player.name }}</a
+								>
+							</h4>
+							<h6 class="card-text">
+								Index:{{ playercard.index }} of {{ cardfilter }} ---- Age: {{ playercard.player.date_of_birth }}
+								<br />
+								Country of Origin: {{ playercard.player.country.name }}
+							</h6>
+						</div>
+						<button type="button" class="btn btn-outline-success">Buy it! 250CFA
+							<span class="badge text-bg-secondary"></span>
+						</button>
+					</div>
+				</div>
+
+{% endblock content %}

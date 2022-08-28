@@ -1,0 +1,15 @@
+{% extends "main.html" %} {% load static %}
+
+{% block content %}
+    {% for obj in object_list %}
+    <div>
+        <p>Auction#{{obj.id}}:
+        <a href={{obj.get_absolute_url}}>
+            Owner:{{obj.owner}}
+            <br>
+            Card:{{obj.card}}</a>
+    </div>
+    {% endfor %}
+
+
+{% endblock content %}
