@@ -1,8 +1,8 @@
 from django.db import models
+from django.shortcuts import reverse
+from django.utils.text import slugify
 from .player import Player
 from .rarity import Rarity
-from .portfolio import Portfolio
-from django.utils.text import slugify
 
 
 class PlayerCard(models.Model):
@@ -11,14 +11,18 @@ class PlayerCard(models.Model):
     rarity = models.ForeignKey(
         Rarity, on_delete=models.SET_NULL, null=True, blank=True)
     price = models.IntegerField(default=0)
-    portfolio = models.ForeignKey(
-        Portfolio, on_delete=models.SET_NULL, null=True, blank=True)
     picture = models.ImageField(upload_to='uploads/cards', null=True, blank=True)
     index = models.IntegerField(null=True, blank=True)
     slug = models.SlugField(max_length=55, unique=True, blank=True)
 
     def __str__(self):
         return f'{self.player} --- {self.rarity} --- {self.index}'
+    
+    def get_absolute_url(self):
+        return reverse("base:playercard", kwargs={
+            "slug": self.slug
+            })
+        
     
     @staticmethod
     def get_all_cards():

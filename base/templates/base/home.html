@@ -1,40 +1,41 @@
 {% extends "main.html" %} {% load static %} {% block content %}
-<link rel="stylesheet" href="{% static 'base/css/home.css' %}" />
+<link rel="stylesheet" href="{% static 'base/css/home.css/' %}" />
 
 <main>
-	<h1>Home Page of {{ user.username }}</h1>
-	<div class="d flex align-align-items-center">
-		<div class="row row-cols-1 row-cols-md-4 g-4 sm-2">
+	<h1>Welcome <strong>{{ user.username }}</strong></h1>
+	<div class="card-container">
+	<h4>New cards for sale</h4>
+	<button class=""></button>
+	<section class="card-list">
 		{% for playercard in playercards %}
-				<div class="col">
-					<div class="card border-secondary mb-3" style="width: 14rem">
-						<img
-							src="https://picsum.photos/200/200"
-							alt="exposed brick wall in a hipster cafe"
-							class="img-fluid"
-						/>
-						<div class="card-body">
-							<h5 class="card-title text-center">
-								<a class="team-name" href="{% url 'playercard' playercard.slug %}"
-									>{{ playercard.player.name }}</a
-								>
-							</h5>
-							<h6 class="card-text text-center">
-								ID:{{ playercard.index }}
-								<br />
-								Age: {{ playercard.player.date_of_birth }}
-								<br />
-								Country: {{ playercard.player.country.name }}
-							</h6>
-						</div>
-						<button type="button" class="btn btn-outline-primary">Buy it! 250CFA
-							<span class="badge text-bg-primary"></span>
-						</button>
-					</div>
-				</div>
-				{% endfor %}
+		<article class="card">
+			<header class="card-header">
+					<a class="team-name" href="{{ playercard.get_absolute_url }}"
+						><h2>{{ playercard.player.name }}</h2></a>
+			</header>
+			<div class="card-body">
+					<a class="player-avatar" href="#"><img
+						src="https://picsum.photos/200/200"
+						alt="exposed brick wall in a hipster cafe"
+						class="img-fluid"
+					/></a>
+					<h6 class="card-text text-center">
+						Index:{{ playercard.index }}
+						<br />
+						Rarity: {{ playercard.rarity }}
+						<br />
+						Age: {{ playercard.player.date_of_birth }}
+						<br />
+						Country: {{ playercard.player.country.name }}
+					</h6>
+				<button type="button" class="buy-button">Buy it! 250CFA
+					<span class="badge"></span>
+				</button>
 			</div>
+		</article>
+		{% endfor %}
 		</div>
+	</section>
 </main>
 
 {% endblock content %}

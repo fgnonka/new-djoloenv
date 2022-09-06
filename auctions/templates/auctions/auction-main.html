@@ -1,15 +1,27 @@
 {% extends "main.html" %} {% load static %}
 
 {% block content %}
-    {% for obj in object_list %}
-    <div>
-        <p>Auction#{{obj.id}}:
-        <a href={{obj.get_absolute_url}}>
-            Owner:{{obj.owner}}
-            <br>
-            Card:{{obj.card}}</a>
+	<div class="row wow fadeIn">
+	<div class="d flex align-align-items-center">
+    <div class="row row-cols-1 row-cols-md-4 g-4 sm-2">
+            {% for obj in object_list %}
+            <div class="col-lg-3 col-md-4 mb-4">
+                <p>Auction#{{obj.id}}:</p>
+		        <div class="card border-secondary mb-3" style="width: 14rem">
+                <img
+				    src="https://picsum.photos/200/200"
+                    alt="exposed brick wall in a hipster cafe"
+				    class="img-fluid"
+			    />
+                <a href={{obj.get_absolute_url}}>
+                Owner:{{obj.owner}}
+                <br>
+                Card:{{obj.card}}</a>
+                </div>
+        </div>
+            {% endfor %}
     </div>
-    {% endfor %}
-
+</div>
+</div>
 
 {% endblock content %}

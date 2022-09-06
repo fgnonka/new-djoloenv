@@ -1,0 +1,15 @@
+{% extends "main.html" %} {% load static %}
+
+{% block content %}
+    {% for bundle in bundles %}
+    <div>
+        <h1><a>Bundle#: {{bundle.id}}</a></h1>
+        {% for card in bundle.cards.all %}
+        <p>Player: {{card.player.name}} --- Index: {{card.index}}</p>
+        {% endfor %}
+        <h2>Price: {{bundle.price}}
+    </div>
+    {% endfor %}
+
+
+{% endblock content %}
