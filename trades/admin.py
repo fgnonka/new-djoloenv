@@ -1,18 +1,19 @@
 from django.contrib import admin
+
 from .models import (Bundle, BundleOrder, SingleCard, OwnedCard, SingleOrder, SingleOrderCard)
 
 # Register your models here.
 
 class SingleOrderAdmin(admin.ModelAdmin):
-    list_display = ['buyer',
+    list_display = ('buyer',
                     'card',
                     'is_sold',
                     'sold_date'
-                    ]
-    list_display_links = [
+                    )
+    list_display_links = (
         'buyer',
         'card'
-    ]
+    )
     list_filter = ['buyer',
                    'card',
                    'sold_date'

@@ -14,7 +14,6 @@ class OwnedCard(models.Model):
         amount_field="card_price", currency_field="DJOL"
     )
     created_date = models.DateTimeField(auto_now_add=True)
-    
     class Meta:
         ordering = ['card']
     
@@ -22,7 +21,7 @@ class OwnedCard(models.Model):
         return f"Card: {self.card}"
     
 class SingleCard(models.Model):
-# This model represent the cards that will be issued by the Djolowin itself at a premium price
+# This model represent the cards that will be issued by the Djolowin platform at a premium price
     card = models.ForeignKey(PlayerCard, on_delete=models.CASCADE)
     price = MoneyField(
         amount_field="card_price", currency_field="DJOL"
@@ -32,7 +31,6 @@ class SingleCard(models.Model):
 class SingleOrderCard(models.Model):
     # This model is an in-between card model for when a user submit a request to buy a SingleCard
     tradecard = models.ForeignKey(SingleCard, on_delete=models.CASCADE)
-    
     class Meta:
         ordering = ['tradecard']
     
@@ -45,7 +43,6 @@ class SingleOrder(models.Model):
     card = models.ForeignKey(SingleOrderCard, on_delete=models.CASCADE)
     is_sold = models.BooleanField(default=False)
     sold_date = models.DateTimeField()
-    
     
     def __str__(self) -> str:
         return f"Order# {self.id}, bought by: {self.buyer}"
@@ -81,7 +78,6 @@ class BundleOrder(models.Model):
     bundle = models.ForeignKey(Bundle, on_delete=models.CASCADE)
     is_sold = models.BooleanField(default=False)
     sold_date = models.DateTimeField()
-    
     class Meta:
         ordering = ['bundle']
     

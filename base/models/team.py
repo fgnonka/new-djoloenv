@@ -13,9 +13,12 @@ class Team(models.Model):
     def __str__(self):
         return f'{self.country} --- {self.year}'
     
-
+    @staticmethod
+    def get_all_teams():
+        return Team.objects.all()
+    
     def save(self, *args, **kwargs): 
-        value = self.country.name + "-" + str(self.year)# new
+        value = str(self.country.name) + "-" + str(self.year)# new
         if not self.slug:
             self.slug = slugify(value, allow_unicode=True)
         return super().save(*args, **kwargs)

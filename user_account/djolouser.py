@@ -2,18 +2,21 @@ from django.db import models
 from django.conf import settings
 from django.db.models import JSONField  # type: ignore
 from django.contrib.auth.models import AbstractUser
-from django_countries.fields import CountryField
-from phonenumber_field.modelfields import PhoneNumberField
 from django.utils.crypto import get_random_string
 from django.forms.models import model_to_dict
 from django.utils import timezone
-from . import CustomerEvents
+from django.contrib.auth.models import User
+
+from django_countries.fields import CountryField
+from phonenumber_field.modelfields import PhoneNumberField
+
 from core.json_serializer import CustomJsonEncoder
+from . import CustomerEvents
 
 
 
-class DjolowinUser(AbstractUser):
-    username = models.CharField(max_length=50, unique=True)
+class DjolowinUser(models.Model):
+    user = models.OneToOneField(User, primary_key=True, on_delete=models.CASCADE)
     email = models.EmailField(unique=True)
     first_name = models.CharField(max_length=50, null=True, blank=True)
     last_name = models.CharField(max_length=50, null=True, blank=True)
@@ -31,10 +34,10 @@ class DjolowinUser(AbstractUser):
         max_length=35, choices=settings.LANGUAGES, default=settings.LANGUAGE_CODE
     )
     
-    USERNAME_FIELD = "username"
+    USERNAME_FIELD = "email"
     
     class Meta:
-        ordering = ("username",)
+        ordering = ("email",)
     
     def register(self):
         self.save()
@@ -47,23 +50,21 @@ class DjolowinUser(AbstractUser):
     def get_email(self):
         return self.email
 
-    def get_username(self) -> str:
-        return self.username
     
     @staticmethod
-    def get_user_by_username(username):
+    def get_user_by_email(email):
         try:
-            return DjolowinUser.objects.get(username=username)
+            return DjolowinUser.objects.get(email=email)
         except:
             return False
     
     def isExists(self):
-        if DjolowinUser.objects.filter(username=self.username):
+        if DjolowinUser.objects.filter(email=self.email):
             return True
         return False
     
     def __str__(self) -> str:
-        return 'User #' + str(self.id) +': ' + self.username
+        return 'User #' + str(self.id) +': ' + self.email
     
 
 class CustomerEvent(models.Model):
@@ -85,7 +86,6 @@ class CustomerEvent(models.Model):
     user = models.ForeignKey(
         DjolowinUser, related_name="events", on_delete=models.CASCADE, null=True
     )
-    # app = models.ForeignKey(App, related_name="+", on_delete=models.SET_NULL, null=True)
 
     class Meta:
         ordering = ("date",)

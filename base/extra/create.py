@@ -5,7 +5,7 @@ from base.models.team import Team
 from base.models.country import Country
 
 # Importing the Csv file and loading it as a DAtaFrame
-df = pd.read_csv('base/extra/south-africa-1996.csv')
+df = pd.read_csv('base/extra/egypt-1998.csv')
 partial_data = pd.DataFrame(
     df, columns=['No.', 'Pos.', 'Player', 'Date of birth'])
 
@@ -28,20 +28,20 @@ for i in range(len(dicto)):
                           position=dicto[count]['Pos.'],
                           date_of_birth=dicto[count]['Date of birth'],
                           jersey_number=dicto[count]['No.'],
-                          team= Team.objects.get(id=3),
-                          country = Country.objects.get(id=6))
+                          team= Team.objects.get(id=4),
+                          country = Country.objects.get(id=5))
     count += 1
     
 # COUNTRY
-# 1Cote d'Ivoire
-# 2Cameroon
-# 3Nigeria
-# 4Egypt
-# 5Zambia
-# 6South Africa
-# 7Tunisia
-# 8Algeria
-# 9Senegal
+# 2Cote d'Ivoire
+# 3Cameroon
+# 4Nigeria
+# 5Egypt
+# 6Zambia
+# 7South Africa
+# 8Tunisia
+# 9Algeria
+# 10Senegal
 
 # TEAM
 # 1Cote d'Ivoire1992

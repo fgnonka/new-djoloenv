@@ -19,8 +19,15 @@ class Player(models.Model):
     def __str__(self):
         return f'{self.name} --- {self.position} --- {self.team}'
     
+    @staticmethod
+    def get_all_players_by_team(team):
+        if team:
+            return Player.objects.filter(team=team)
+        else:
+            return None
+    
     def save(self, *args, **kwargs): 
-        value = self.name + "-" + self.team.country.name# new
+        value = self.name + "-" + str(self.team.country.name)# new
         if not self.slug:
             self.slug = slugify(value, allow_unicode=False)
         return super().save(*args, **kwargs)

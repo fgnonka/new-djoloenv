@@ -14,7 +14,7 @@ SECRET_KEY = 'zvll7%e+7q45i9=$pq55-pr29)!lqz5s*p1d4#z9h$(iu^!(8%k^e'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-AUTH_USER_MODEL = 'user_account.DjolowinUser'
+# AUTH_USER_MODEL = 'user_account.DjolowinUser'
 ALLOWED_HOSTS = ['*']
 
 
